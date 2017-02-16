@@ -7,6 +7,7 @@
 # IDE #
 .idea
 *.iml
+*.log
 
 # Package Files #
 *.jar

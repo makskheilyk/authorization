@@ -2,14 +2,155 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>easysoft.api</groupId>
+    <artifactId>oauth-app</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <description>oauth</description>
+
     <parent>
         <artifactId>oauth</artifactId>
         <groupId>oauth</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>oauth-app</artifactId>
+    <properties>
+        <!-- The main class to start by executing java -jar -->
+        <start-class>com.oauth.config.ResourceApplication</start-class>
+        <!-- Global Setting -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <!-- Project UI Setting -->
+        <wro4j.version>1.8.0</wro4j.version>
+        <angularjs.version>1.4.9</angularjs.version>
+        <jquery.version>2.2.4</jquery.version>
+        <bootstrap.version>3.3.7-1</bootstrap.version>
+    </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>oauth</groupId>
+            <artifactId>oauth-domain</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- Third-party packages -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-dependency-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>2.10</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>easysoft-app</finalName>
+        <plugins>
+            <plugin>
+                <groupId>ro.isdc.wro4j</groupId>
+                <artifactId>wro4j-maven-plugin</artifactId>
+                <version>${wro4j.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
+                    <cssDestinationFolder>${project.build.directory}/classes/static/css</cssDestinationFolder>
+                    <jsDestinationFolder>${project.build.directory}/classes/static/js</jsDestinationFolder>
+                    <wroFile>${basedir}/src/main/wro/wro.xml</wroFile>
+                    <extraConfigFile>${basedir}/src/main/wro/wro.properties</extraConfigFile>
+                    <contextFolder>${basedir}/src/main/wro</contextFolder>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.webjars</groupId>
+                        <artifactId>jquery</artifactId>
+                        <version>${jquery.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.webjars</groupId>
+                        <artifactId>angularjs</artifactId>
+                        <version>${angularjs.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.webjars</groupId>
+                        <artifactId>bootstrap</artifactId>
+                        <version>${bootstrap.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>com.github.searls</groupId>
+                <artifactId>jasmine-maven-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <additionalContexts>
+                        <context>
+                            <contextRoot>/lib</contextRoot>
+                            <directory>${project.build.directory}/classes/static/js</directory>
+                        </context>
+                    </additionalContexts>
+                    <preloadSources>
+                        <source>/lib/angular-bootstrap.js</source>
+                        <source>/webjars/angularjs/${angularjs.version}/angular-mocks.js</source>
+                    </preloadSources>
+                    <jsSrcDir>${project.basedir}/src/main/resources/static/js</jsSrcDir>
+                    <jsTestSrcDir>${project.basedir}/src/test/resources/static/js</jsTestSrcDir>
+                    <phantomjs>
+                        <version>2.1.1</version>
+                    </phantomjs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
