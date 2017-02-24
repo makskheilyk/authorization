@@ -22,7 +22,7 @@ public class BarController {
     }
 
     // API - read
-    @PreAuthorize("#oauth2.hasScope('bar') and #oauth2.hasScope('read')")
+    //@PreAuthorize("#oauth2.hasScope('bar') and #oauth2.hasScope('read')")
     @RequestMapping(method = RequestMethod.GET, value = "/bars/{id}")
     @ResponseBody
     public Bar findById(@PathVariable final long id) {

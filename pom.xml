@@ -22,6 +22,24 @@
         <module>oauth-persist</module>
     </modules>
 
+    <properties>
+        <!-- The main class to start by executing java -jar -->
+        <start-class>com.oauth.app.config.ResourceApplication</start-class>
+        <!-- Global Setting -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <!-- Project UI Setting -->
+        <wro4j.version>1.8.0</wro4j.version>
+        <angularjs.version>1.4.9</angularjs.version>
+        <jquery.version>2.2.4</jquery.version>
+        <bootstrap.version>3.3.7-1</bootstrap.version>
+        <!-- logging -->
+        <org.slf4j.version>1.7.12</org.slf4j.version>
+
+        <rest-assured.version>2.4.0</rest-assured.version>
+    </properties>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
         <dependency>

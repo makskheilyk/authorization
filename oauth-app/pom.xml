@@ -16,20 +16,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <properties>
-        <!-- The main class to start by executing java -jar -->
-        <start-class>com.oauth.app.config.ResourceApplication</start-class>
-        <!-- Global Setting -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <!-- Project UI Setting -->
-        <wro4j.version>1.8.0</wro4j.version>
-        <angularjs.version>1.4.9</angularjs.version>
-        <jquery.version>2.2.4</jquery.version>
-        <bootstrap.version>3.3.7-1</bootstrap.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>oauth</groupId>
@@ -53,6 +39,10 @@
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zuul</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -85,6 +75,18 @@
         </dependency>
 
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Brixton.SR5</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <finalName>easysoft-app</finalName>

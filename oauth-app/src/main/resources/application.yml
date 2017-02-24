@@ -5,3 +5,11 @@ security:
 logging:
   level:
     org.springframework.security: DEBUG
+
+server:
+    port: 8084
+zuul:
+  routes:
+    oauth:
+      path: /oauth/**
+      url: http://localhost:8081/spring-security-oauth-server/oauth
